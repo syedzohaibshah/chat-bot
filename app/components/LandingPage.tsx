@@ -42,7 +42,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <div style={{
-      height: '100vh',
+      height: '700px',
       backgroundColor: '#2c2c2c',
       color: '#ffffff',
       display: 'flex',
@@ -50,11 +50,11 @@ const LandingPage: React.FC = () => {
       alignItems: 'center',
       flexDirection: 'column',
     }}>
-      <div style={{ marginBottom: '20px', textAlign: 'center', fontSize: '24px' }}>
+      <div style={{ margin: '20px 0px', textAlign: 'center', fontSize: '24px' }}>
         Welcome to Our AI Chat Bot
       </div>
       <div style={{
-        width: '1000px',
+        width: '70%',
         height: '700px',
         backgroundColor: '#3e3e3e',
         borderRadius: '10px',
@@ -88,7 +88,8 @@ const LandingPage: React.FC = () => {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Chat to AI Bot"
             style={{
-              padding: '8px',
+              padding: '10px',
+              fontSize:'18px',
               paddingRight: '100px', // Make room for the button
               borderRadius: '5px',
               width: '100%',
@@ -103,7 +104,9 @@ const LandingPage: React.FC = () => {
               right: '2px',
               top: '50%',
               transform: 'translateY(-50%)',
-              padding: '4px 8px',
+              padding: '6px 10px',
+              fontSize:'16px',
+              marginRight:5,
               borderRadius: '5px',
               backgroundColor: '#4a4a4a',
               color: '#ffffff',

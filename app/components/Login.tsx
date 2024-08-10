@@ -3,6 +3,9 @@ import  { useState } from 'react'
 import { createUserWithEmailAndPassword,  signInWithEmailAndPassword} from 'firebase/auth'
 import {auth} from '../firebase/firebase'
 import { useRouter } from 'next/navigation'
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -54,25 +57,25 @@ const Login = () => {
     }
   return (
     <>
-    <form>
+    <form className='form'>
         {isSignUpActive && <legend><u>Sign Up</u></legend>}
         {!isSignUpActive && <legend><u>Sign In</u></legend>}
         <fieldset>
             <ul>
                 <li>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id='email' onChange={(e)=>setEmail(e.target.value)} />
+                    <label className='label' htmlFor="email">Email</label>
+                    <MdEmail style={{fontSize:'22px',marginLeft:5}}/><input className='input' type="email" id='email' onChange={(e)=>setEmail(e.target.value)} />
                 </li>
                 <li>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id='password' onChange={(e)=>setPassword(e.target.value)}/>
+                    <label className='label' htmlFor="password">Password</label>
+                    <RiLockPasswordFill style={{fontSize:'22px',marginLeft:5}}/><input className='input' type="password" id='password' onChange={(e)=>setPassword(e.target.value)}/>
                 </li>
             </ul>
             {isSignUpActive && (
-                <button type='button' onClick={handleSignUp}>Sign Up</button>
+                <button type='button' className='btn' onClick={handleSignUp}>Sign Up</button>
             )}
             {!isSignUpActive && (
-                <button type='button' onClick={handleSignIn}>Sign In</button>
+                <button type='button' className='btn' onClick={handleSignIn}>Sign In</button>
             )}
         </fieldset>
         {error && <p id='error-message'>{error}</p>}
