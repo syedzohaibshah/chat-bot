@@ -1,15 +1,26 @@
 import { useRouter } from "next/navigation"
-import { ReactNode } from "react"
+import { ReactNode, useEffect } from "react"
+import { User } from 'firebase/auth';
 
 interface ProtectedRouteProps {
+  user: User | null;
   children: ReactNode;
-  user: boolean; 
 }
 
-const ProtectedRoute = ({ children, user }: ProtectedRouteProps) => {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ user, children }) => {
   const router = useRouter()
 
-  return user ? children : router.push('/')
+  useEffect(() => {
+    if (!user) {
+      router.push('/')
+    }
+  }, [user, router])
+
+  if (!user) {
+    return null; // or return a loading indicator
+  }
+
+  return <>{children}</>
 }
 
 export default ProtectedRoute
