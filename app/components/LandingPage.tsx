@@ -1,11 +1,25 @@
 "use client";
 import React, { useState } from 'react';
 import { GrokMessage } from '@/app/types/grok';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase/firebase';
+import { useRouter } from 'next/navigation';
+
 
 const LandingPage: React.FC = () => {
   const [messages, setMessages] = useState<GrokMessage[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push('/login');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,36 +55,22 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div style={{
-      height: '700px',
-      backgroundColor: '#2c2c2c',
-      color: '#ffffff',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'column',
-    }}>
-      <div style={{ margin: '20px 0px', textAlign: 'center', fontSize: '24px' }}>
+    <div className="container">
+      {/* Logout Button */}
+      <button
+        onClick={handleLogout}
+        className="logoutButton"
+      >
+        Logout
+      </button>
+      
+      <div className="title">
         Welcome to Our AI Chat Bot
       </div>
-      <div style={{
-        width: '70%',
-        height: '700px',
-        backgroundColor: '#3e3e3e',
-        borderRadius: '10px',
-        padding: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}>
-        <div style={{
-          flexGrow: 1,
-          overflowY: 'auto',
-          marginBottom: '20px',
-        }}>
+      <div className="chatContainer">
+        <div className="messagesContainer">
           {messages.map((message, index) => (
-            <div key={index} style={{
-              marginBottom: '10px',
+            <div key={index} className="message" style={{
               color: message.role === 'user' ? '#ffffff' : '#a0a0a0',
             }}>
               <strong>{message.role === 'user' ? 'You: ' : 'AI: '}</strong>
@@ -78,41 +78,18 @@ const LandingPage: React.FC = () => {
             </div>
           ))}
         </div>
-        <form onSubmit={handleSubmit} style={{ 
-          display: 'flex',
-          position: 'relative',
-        }}>
+        <form onSubmit={handleSubmit} className="form">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Chat to AI Bot"
-            style={{
-              padding: '10px',
-              fontSize:'18px',
-              paddingRight: '100px', // Make room for the button
-              borderRadius: '5px',
-              width: '100%',
-              boxSizing: 'border-box',
-            }}
+            className="input"
           />
           <button
             type="submit"
             disabled={isLoading}
-            style={{
-              position: 'absolute',
-              right: '2px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              padding: '6px 10px',
-              fontSize:'16px',
-              marginRight:5,
-              borderRadius: '5px',
-              backgroundColor: '#4a4a4a',
-              color: '#ffffff',
-              border: 'none',
-              cursor: 'pointer',
-            }}
+            className="sendButton"
           >
             {isLoading ? 'Sending...' : 'Send'}
           </button>
