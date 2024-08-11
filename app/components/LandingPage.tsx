@@ -15,7 +15,7 @@ const LandingPage: React.FC = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push('/login');
+      router.push('/');
     } catch (error) {
       console.error('Error signing out:', error);
     }
@@ -78,7 +78,7 @@ const LandingPage: React.FC = () => {
             </div>
           ))}
         </div>
-        <form onSubmit={handleSubmit} className="form">
+        <form onSubmit={handleSubmit} className="chatForm">
           <input
             type="text"
             value={input}
